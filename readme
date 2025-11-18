@@ -1,1 +1,218 @@
-readme
+# Operators as Functions – Extended Exercise
+
+### Implemented in C#, TypeScript, and Python
+
+In this exercise, all **operators are forbidden**.  
+You may NOT use:
+
+/ %
+< >= <= ==
+&& || !
+and or not
+=== !==
+
+You MUST rewrite expressions using ONLY the function set below.
+
+---
+
+## Allowed Functions
+
+### Arithmetic
+
+add(x, y)
+subtract(x, y)
+multiply(x, y)
+divide(x, y) # integer division
+mod(x, y)
+
+### Boolean
+
+and_func(x, y)
+or_func(x, y)
+not_func(x)
+
+### Comparisons
+
+greater_than(x, y)
+less_equal(x, y)
+equal(x, y)
+
+---
+
+## Tasks
+
+Rewrite the following expressions using **only the allowed functions**.
+
+### 1️⃣ Worked Example
+
+(a + b \* c) > (d - e) and x or y
+
+### 2️⃣ Expression
+
+(a - b) \* (c + d) <= e and z and not x
+
+### 3️⃣ Expression
+
+(a + b + c) % d == 0 or (f > e and is_admin)
+
+### 4️⃣ Expression
+
+not (x or y) and (a _ a > b _ c)
+
+You must implement each expression in **Python**, **C#**, and **TypeScript**.
+
+---
+
+# Python Template
+
+```python
+def add(x, y):          return x + y
+def subtract(x, y):     return x - y
+def multiply(x, y):     return x * y
+def divide(x, y):       return x // y
+def mod(x, y):          return x % y
+
+def and_func(x, y):     return x and y
+def or_func(x, y):      return x or y
+def not_func(x):        return not x
+
+def greater_than(x, y): return x > y
+def less_equal(x, y):   return x <= y
+def equal(x, y):        return x == y
+
+
+a, b, c, d, e, f = 5, 3, 7, 4, 2, 10
+x, y, z, is_admin = True, False, True, False
+
+
+# 1) Worked Example
+expected1 = (a + b * c) > (d - e) and x or y
+actual1 = or_func(
+    and_func(
+        greater_than(
+            add(a, multiply(b, c)),
+            subtract(d, e)
+        ),
+        x
+    ),
+    y
+)
+print(expected1, actual1)
+
+
+# 2)
+expected2 = (a - b) * (c + d) <= e and z and not x
+# actual2 = ...
+
+# 3)
+expected3 = (a + b + c) % d == 0 or (f > e and is_admin)
+# actual3 = ...
+
+# 4)
+expected4 = not (x or y) and (a * a > b * c)
+
+
+# C# Template
+
+using System;
+
+class Program
+{
+    static int Add(int x, int y)          => x + y;
+    static int Subtract(int x, int y)     => x - y;
+    static int Multiply(int x, int y)     => x * y;
+    static int Divide(int x, int y)       => x / y;
+    static int Mod(int x, int y)          => x % y;
+
+    static bool AndFunc(bool x, bool y)   => x && y;
+    static bool OrFunc(bool x, bool y)    => x || y;
+    static bool NotFunc(bool x)           => !x;
+
+    static bool GreaterThan(int x, int y) => x > y;
+    static bool LessEqual(int x, int y)   => x <= y;
+    static bool Equal(int x, int y)       => x == y;
+
+    static void Main()
+    {
+        int a = 5, b = 3, c = 7, d = 4, e = 2, f = 10;
+        bool x = true, y = false, z = true, isAdmin = false;
+
+        // 1) Worked Example
+        bool expected1 = (a + b * c) > (d - e) && x || y;
+        bool actual1 =
+            OrFunc(
+                AndFunc(
+                    GreaterThan(
+                        Add(a, Multiply(b, c)),
+                        Subtract(d, e)
+                    ),
+                    x
+                ),
+                y
+            );
+        Console.WriteLine($"{expected1} {actual1}");
+
+
+        // 2)
+        bool expected2 = (a - b) * (c + d) <= e && z && !x;
+        // actual2 = ...
+
+        // 3)
+        bool expected3 = (a + b + c) % d == 0 || (f > e && isAdmin);
+        // actual3 = ...
+
+        // 4)
+        bool expected4 = !(x || y) && (a * a > b * c);
+        // actual4 = ...
+    }
+}
+
+# TypeScript Template
+
+function add(x: number, y: number): number          { return x + y; }
+function subtract(x: number, y: number): number     { return x - y; }
+function multiply(x: number, y: number): number     { return x * y; }
+function divide(x: number, y: number): number       { return Math.trunc(x / y); }
+function mod(x: number, y: number): number          { return x % y; }
+
+function andFunc(x: boolean, y: boolean): boolean   { return x && y; }
+function orFunc(x: boolean, y: boolean): boolean    { return x || y; }
+function notFunc(x: boolean): boolean               { return !x; }
+
+function greaterThan(x: number, y: number): boolean { return x > y; }
+function lessEqual(x: number, y: number): boolean   { return x <= y; }
+function equal(x: number, y: number): boolean       { return x === y; }
+
+
+const a = 5, b = 3, c = 7, d = 4, e = 2, f = 10;
+const x = true, y = false, z = true, isAdmin = false;
+
+
+// 1) Worked Example
+const expected1 = (a + b * c) > (d - e) && x || y;
+
+const actual1 = orFunc(
+    andFunc(
+        greaterThan(
+            add(a, multiply(b, c)),
+            subtract(d, e)
+        ),
+        x
+    ),
+    y
+);
+console.log(expected1, actual1);
+
+
+// 2)
+const expected2 = (a - b) * (c + d) <= e && z && !x;
+// actual2 = ...
+
+// 3)
+const expected3 = (a + b + c) % d == 0 || (f > e && isAdmin);
+// actual3 = ...
+
+// 4)
+const expected4 = !(x || y) && (a * a > b * c);
+// actual4 = ...
+```
